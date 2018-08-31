@@ -1,26 +1,27 @@
-var port = 9760;
-var host = '192.168.1.64';
+const port = 9760;
+const host = '192.168.1.79';
+const dgram = require('dgram');
+
+const client = dgram.createSocket('udp4');
 
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-const dgram = require('dgram');
 
-function send() {
+const send = () => {
     readline.question("Enter Code: ", (answer) => {
         sendMessage(answer);
         readline.close();
     });
 }
 
-var sendMessage = (code) => {
-    var client = dgram.createSocket('udp4');
+const sendMessage = code => {
     var message = "100,!" + code;
-    var sendMessage = new Buffer(message);
+    var sendMessage = Buffer.from(message);
 
-    client.send(sendMessage, 0, sendMessage.length, port, host, (err, bytes) => {
+    client.send(sendMessage, 0, sendMessage.length, port, host, (err) => {
         if(err) throw err;
         console.log(`UDP message - ${sendMessage} sent to ${host}:${port}`);
         client.close();

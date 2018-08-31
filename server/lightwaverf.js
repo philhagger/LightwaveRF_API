@@ -1,10 +1,9 @@
-var port = 9760;
-var host = '192.168.1.64';
+const port = 9761;
 
 const dgram = require('dgram');
 
-var client = dgram.createSocket({type: 'udp4', reuseAddr: true});
-client.bind(9761);
+const client = dgram.createSocket({type: 'udp4', reuseAddr: true});
+client.bind(port);
 
 client.on('listening', () => {
     const address = client.address();
@@ -12,6 +11,6 @@ client.on('listening', () => {
 });
 
 client.on('message', (message, remote) => {
-    // if(remote.port === 9760)
+    if(remote.port === 4101)
         console.log(`${remote.address}:${remote.port} - ${message}`);
 });

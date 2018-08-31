@@ -1,21 +1,16 @@
-const dgram = require('dgram');
-const server = dgram.createSocket('udp4');
-const port = 41234;
-const host = '127.0.0.1';
+const host = '192.168.1.79';
+const port = 9760;
 
-server.on('error', (err) => {
-    console.error(`server error:\n${err.stack}`);
-    server.close();
-});
+const sendMessage = code => {
+    const udp = require('dgram').createSocket('udp4');
+    const sendMessage = Buffer.from("100,!" + code);
+    // const sendMessage = Buffer.from(message);
 
-server.on('message', (msg, rinfo) => {
-    console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
-});
+    udp.send(sendMessage, 0, sendMessage.length, port, host, (err) => {
+        if(err) throw err;
+        console.log(`UDP message - ${sendMessage} sent to ${host}:${port}`);
+        udp.close();
+    });
+}
 
-server.on('listening', () => {
-    const address = server.address();
-    console.log("LightwaveRF Server");
-    console.log(`Listening ${address.address}:${address.port}`);
-});
-
-server.bind(41234);
+sendMessage('R2D2F1');
