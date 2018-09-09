@@ -1,0 +1,31 @@
+{
+  "name": "lightwaverf_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "babel": {
+    "presets": [
+      "env",
+      "stage-2"
+    ]
+  },
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philhagger/LightwaveRF_API.git"
+  },
+  "author": "Phil Hagger <phil@hagger.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philhagger/LightwaveRF_API/issues"
+  },
+  "homepage": "https://github.com/philhagger/LightwaveRF_API#readme",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
+  }
+}
