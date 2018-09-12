@@ -5,20 +5,22 @@ const port = 9760;
 const sendMessage = (udp, code, callback) => {
   const udpMessage = Buffer.from('100,!' + code);
 
+  udp.send(udpMessage, 0, udpMessage.length, port, host);
+  setTimeout(() => {
+    udp.send(udpMessage, 0, udpMessage.length, port, host);
+  }, 500);
   udp.send(udpMessage, 0, udpMessage.length, port, host, err => {
-    udp.send(udpMessage, 0, udpMessage.length, port, host, err => {
-      // TODO: need to check the response from the listener then if it is not returned fail the request
-      if (err) {
-        callback({ success: false, message: err });
-      } else {
-        console.log(`UDP message - ${udpMessage} sent to ${host}:${port}`);
-        callback({
-          success: true,
-          message: `UDP message - ${udpMessage} sent to ${host}:${port}`
-        });
-      }
-      // udp.close();
-    });
+    // TODO: need to check the response from the listener then if it is not returned fail the request
+    if (err) {
+      callback({ success: false, message: err });
+    } else {
+      console.log(`UDP message - ${udpMessage} sent to ${host}:${port}`);
+      callback({
+        success: true,
+        message: `UDP message - ${udpMessage} sent to ${host}:${port}`
+      });
+    }
+    // udp.close();
   });
 };
 
