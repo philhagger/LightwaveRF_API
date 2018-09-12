@@ -15,7 +15,7 @@ export const triggerLight = ({ params }, res) => {
   let status = params.on;
 
   if (status === 'dim') {
-    status = `dP${params.dim * 0.32}`;
+    status = `dP${Math.round(params.dim * 0.32)}`;
   } else if (status === 'on') {
     status = 1;
   } else {
