@@ -21,7 +21,9 @@ const sendMessage = () => {
 udp.on('message', (message, remote) => {
   if (remote.port === 4101) {
     const rx = JSON.parse(message.toString().split('!')[1]);
-    const checkValue = `R${rx.room}D${rx.dev}F${rx.fn === 'on' ? 1 : 0}`;
+    const checkValue = `R${rx.room}D${rx.dev}F${
+      rx.fn === 'on' ? 1 : rx.fn === 'dim' ? `dP${rx.param}` : 0
+    }`;
 
     if (code === checkValue) {
       console.log({ success: true, target: code });
